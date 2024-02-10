@@ -1,0 +1,56 @@
+﻿@model AirlineFlightApp.Models.FlightDto
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form action="/Flight/Update/@Model.FlightId" method="POST">
+    <div>
+        <input type="text" name="FlightId" value="@Model.FlightId" style="display:none" />
+    </div>
+    <div>
+        <label>Flight Number : </label> <input type="text" name="FlightNumber" value="@Model.FlightNumber" />
+    </div>
+    <div>
+        <label>From : </label> <input type="text" name="From" value="@Model.From" />
+    </div>
+    <div>
+        <label>To : </label> <input type="text" name="To" value="@Model.To" />
+    </div>
+    <div>
+        <label>Departure Airport : </label> <input type="text" name="DepartureAirport" value="@Model.DepartureAirport" />
+    </div>
+    <div>
+        <label>Destination Airport : </label> <input type="text" name="DestinationAirport" value="@Model.DestinationAirport" />
+    </div>
+    <div>
+        <label>Departure Time : </label> <input type="datetime-local" name="DepartureTime" value="@Model.DepartureTime.ToString("yyyy-MM-ddT"+@Model.ArrivalTime.TimeOfDay+"")" />
+    </div>
+    <div>
+        <label>Arrival Time : </label> <input type="datetime-local" name="ArrivalTime" value="@Model.ArrivalTime.ToString("yyyy-MM-ddT"+@Model.ArrivalTime.TimeOfDay+"")" />
+    </div>
+    <div>
+        <label>Ticket Price : </label> <input type="number" name="TicketPrice" step="0.01" min="0" value="@Model.TicketPrice" />
+    </div>
+    <div>
+        <label>Time Zone From : </label> <input type="text" name="TimeZoneFrom" value="@Model.TimeZoneFrom" />
+    </div>
+    <div>
+        <label>Time Zone To : </label> <input type="text" name="TimeZoneTo" value="@Model.TimeZoneTo" />
+    </div>
+
+    <div>
+        <label>Airline Id : </label> <input type="number" name="AirlineId" value="@Model.AirlineId" />
+    </div>
+    <div>
+        <label>Airplane Id : </label> <input type="number" name="AirplaneId" value="@Model.AirplaneId" />
+    </div>
+
+
+    <div>
+        <input type="submit" value="Update Flight" />
+
+    </div>
+</form>
+

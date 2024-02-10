@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Airline</h2>
+
+<form action="/Airline/Create" method="POST">
+    <div>
+        <label>Name Airline : </label> <input type="text" name="AirlineName" />
+    </div>
+    <div>
+        <label>Country : </label> <input type="text" name="Country" />
+    </div>
+    <div>
+        <label>Headquarters : </label> <input type="text" name="Headquarters" />
+    </div>
+    <div>
+        <label>Founder : </label> <input type="text" name="FounderName" />
+    </div>
+    <div>
+        <label>Founding Year : </label> <input type="date" name="FoundingYear" />
+    </div>
+    <div>
+        <label>Website : </label> <input type="text" name="Website" />
+    </div>
+    <div>
+        <label>Contact Number : </label> <input type="tel" name="ContactNumber" />
+    </div>
+
+    <div>
+        <input type="submit" value="Add Airline" />
+
+    </div>
+</form>

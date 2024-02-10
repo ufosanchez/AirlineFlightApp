@@ -1,0 +1,16 @@
+﻿@model AirlineFlightApp.Models.FlightDto
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Are you sure you want to delete this Flight?</h2>
+<a href="/Flight/List">Cancel</a>
+
+<h2>@Model.FlightNumber</h2>
+<div>From: @Model.From</div>
+<div>To: @Model.To</div>
+<div>Airline: @Model.AirlineName</div>
+
+<form action="/Flight/Delete/@Model.FlightId" method="POST">
+    <input type="submit" value="Confirm Delete" />
+</form>

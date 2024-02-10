@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Create Flight</h2>
+
+<form action="/Flight/Create" method="POST">
+    <div>
+        <label>Flight Number : </label> <input type="text" name="FlightNumber" />
+    </div>
+    <div>
+        <label>From : </label> <input type="text" name="From" />
+    </div>
+    <div>
+        <label>To : </label> <input type="text" name="To" />
+    </div>
+    <div>
+        <label>Departure Airport : </label> <input type="text" name="DepartureAirport" />
+    </div>
+    <div>
+        <label>Destination Airport : </label> <input type="text" name="DestinationAirport" />
+    </div>
+    <div>
+        <label>Departure Time : </label> <input type="datetime-local" name="DepartureTime" />
+    </div>
+    <div>
+        <label>Arrival Time : </label> <input type="datetime-local" name="ArrivalTime" />
+    </div>
+    <div>
+        <label>Ticket Price : </label> <input type="number" name="TicketPrice" step="0.01" min="0" />
+    </div>
+    <div>
+        <label>Time Zone From : </label> <input type="text" name="TimeZoneFrom" />
+    </div>
+    <div>
+        <label>Time Zone To : </label> <input type="text" name="TimeZoneTo" />
+    </div>
+
+    <div>
+        <label>Airline Id : </label> <input type="number" name="AirlineId" />
+    </div>
+    <div>
+        <label>Airplane Id : </label> <input type="number" name="AirplaneId" />
+    </div>
+
+
+    <div>
+        <input type="submit" value="Add Flight" />
+
+    </div>
+</form>
+

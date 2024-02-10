@@ -1,0 +1,19 @@
+﻿@model IEnumerable<AirlineFlightApp.Models.FlightDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of Flights in the system</h2>
+
+<a href="/Flight/New">New Flight</a>
+@foreach (var flight in Model)
+{
+    <h2><a href="/Flight/Details/@flight.FlightId">@flight.FlightNumber</a></h2>
+    <div style="font-weight:bold">Airline: @flight.AirlineName</div>
+    <div>From: @flight.From</div>
+    <div>To: @flight.To</div>
+    <div>Ticket price: CA$ @flight.TicketPrice</div>
+    <hr />
+
+}
+

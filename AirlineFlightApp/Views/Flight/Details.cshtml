@@ -1,0 +1,26 @@
+﻿@model AirlineFlightApp.Models.FlightDto
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details of Flight</h2>
+
+<div style="display:flex; gap:10em">
+    <a href="/Flight/List" style="font-weight:bold">Go back to list</a>
+
+    <a href="/Flight/Edit/@Model.FlightId" style="font-weight:bold; color:green">Update</a>
+
+    <a href="/Flight/DeleteConfirm/@Model.FlightId" style="font-weight: bold; color: red">Delete</a>
+</div>
+
+<h2>Flight Number: @Model.FlightNumber</h2>
+<div><strong>From: </strong> @Model.From</div>
+<div><strong>To: </strong> @Model.To</div>
+<div><strong>Airline: </strong> @Model.AirlineName</div>
+<div><strong>Airplane: </strong> @Model.AirplaneModel</div>
+<div><strong>Departure Airport: </strong> @Model.DepartureAirport</div>
+<div><strong>Destination Airport: </strong> @Model.DestinationAirport</div>
+<div><strong>Departure Time: </strong> @Model.DepartureTime.ToString("yyyy-MM-dd hh:mm:ss tt") -- @Model.TimeZoneFrom</div>
+<div><strong>Arrival Time: </strong> @Model.ArrivalTime.ToString("yyyy-MM-dd h:mm:ss tt") -- @Model.TimeZoneTo</div>
+<div><strong>Ticket Price: </strong> @Model.TicketPrice</div>
+

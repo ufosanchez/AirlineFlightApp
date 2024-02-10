@@ -1,0 +1,38 @@
+﻿@model AirlineFlightApp.Models.AirlineDto
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form action="/Airline/Update/@Model.AirlineId" method="POST">
+    <div>
+        <input type="text" name="AirlineId" value="@Model.AirlineId" style="display:none"/>
+    </div>
+    <div>
+        <label>Name Airline : </label> <input type="text" name="AirlineName" value="@Model.AirlineName"/>
+    </div>
+    <div>
+        <label>Country : </label> <input type="text" name="Country" value="@Model.Country"/>
+    </div>
+    <div>
+        <label>Headquarters : </label> <input type="text" name="Headquarters" value="@Model.Headquarters"/>
+    </div>
+    <div>
+        <label>Founder : </label> <input type="text" name="FounderName" value="@Model.FounderName"/>
+    </div>
+    <div>
+        <label>Founding Year : </label> <input type="date" name="FoundingYear" value="@Model.FoundingYear.Date.ToString("yyyy-MM-dd")"/>
+    </div>
+    <div>
+        <label>Website : </label> <input type="text" name="Website" value="@Model.Website"/>
+    </div>
+    <div>
+        <label>Contact Number : </label> <input type="tel" name="ContactNumber" value="@Model.ContactNumber"/>
+    </div>
+
+    <div>
+        <input type="submit" value="Update Airline" />
+
+    </div>
+</form>

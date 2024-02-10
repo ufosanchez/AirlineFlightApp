@@ -1,0 +1,16 @@
+﻿@model IEnumerable<AirlineFlightApp.Models.AirplaneDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of Airplanes in the system</h2>
+
+<a href="/Airplane/New">New Airplane</a>
+@foreach (var airplane in Model)
+{
+    <h2><a href="/Airplane/Details/@airplane.AirplaneId">@airplane.AirplaneModel</a></h2>
+    <div>Registration Number: @airplane.RegistrationNum</div>
+    <div>Manufacture Year: @airplane.ManufactureYear.Date.ToString("yyyy-MM-dd")</div>
+    <hr />
+}
+

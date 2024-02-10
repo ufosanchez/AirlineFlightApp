@@ -1,0 +1,17 @@
+﻿@model AirlineFlightApp.Models.AirplaneDto
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Are you sure you want to delete this Airplane?</h2>
+<a href="/Airplane/List">Cancel</a>
+
+<h2>@Model.AirplaneModel</h2>
+<div>Registration Number: @Model.RegistrationNum</div>
+<div>Manufacturer: @Model.ManufacturerName</div>
+<div>Manufacture Year: @Model.ManufactureYear.Date.ToString("yyyy-MM-dd")</div>
+
+<form action="/Airplane/Delete/@Model.AirplaneId" method="POST">
+    <input type="submit" value="Confirm Delete" />
+</form>
+

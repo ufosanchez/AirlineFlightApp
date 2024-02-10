@@ -1,0 +1,41 @@
+﻿@model AirlineFlightApp.Models.AirplaneDto
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form action="/Airplane/Update/@Model.AirplaneId" method="POST">
+    <div>
+        <input type="text" name="AirplaneId" value="@Model.AirplaneId" style="display:none" />
+    </div>
+    <div>
+        <label>Airplane Model : </label> <input type="text" name="AirplaneModel" value="@Model.AirplaneModel"/>
+    </div>
+    <div>
+        <label>Registration Number : </label> <input type="text" name="RegistrationNum" value="@Model.RegistrationNum"/>
+    </div>
+    <div>
+        <label>Manufacturer : </label> <input type="text" name="ManufacturerName" value="@Model.ManufacturerName"/>
+    </div>
+    <div>
+        <label>Manufacture Year : </label> <input type="date" name="ManufactureYear" value="@Model.ManufactureYear.Date.ToString("yyyy-MM-dd")"/>
+    </div>
+    <div>
+        <label>Max Passengers : </label> <input type="number" name="MaxPassenger" min="0" value="@Model.MaxPassenger"/>
+    </div>
+    <div>
+        <label>Engine Model : </label> <input type="text" name="EngineModel" value="@Model.EngineModel"/>
+    </div>
+    <div>
+        <label>Speed : </label> <input type="number" name="Speed" step="0.01" min="0" value="@Model.Speed"/>
+    </div>
+    <div>
+        <label>Range : </label> <input type="number" name="Range" step="0.01" min="0" value="@Model.Range"/>
+    </div>
+
+    <div>
+        <input type="submit" value="Add Airplane" />
+
+    </div>
+</form>

@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Create Airplane</h2>
+
+<form action="/Airplane/Create" method="POST">
+    <div>
+        <label>Airplane Model : </label> <input type="text" name="AirplaneModel" />
+    </div>
+    <div>
+        <label>Registration Number : </label> <input type="text" name="RegistrationNum" />
+    </div>
+    <div>
+        <label>Manufacturer : </label> <input type="text" name="ManufacturerName" />
+    </div>
+    <div>
+        <label>Manufacture Year : </label> <input type="date" name="ManufactureYear" />
+    </div>
+    <div>
+        <label>Max Passengers : </label> <input type="number" name="MaxPassenger" min="0"/>
+    </div>
+    <div>
+        <label>Engine Model : </label> <input type="text" name="EngineModel" />
+    </div>
+    <div>
+        <label>Speed : </label> <input type="number" name="Speed" step="0.01" min="0"/>
+    </div>
+    <div>
+        <label>Range : </label> <input type="number" name="Range" step="0.01" min="0"/>
+    </div>
+
+    <div>
+        <input type="submit" value="Add Airplane" />
+
+    </div>
+</form>
+
