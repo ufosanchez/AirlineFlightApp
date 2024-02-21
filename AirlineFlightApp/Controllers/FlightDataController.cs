@@ -62,7 +62,46 @@ namespace AirlineFlightApp.Controllers
                 TicketPrice = f.TicketPrice,
                 TimeZoneFrom = f.TimeZoneFrom,
                 TimeZoneTo = f.TimeZoneTo,
+                AirlineId = f.AirlineId,
                 AirlineName = f.Airline.AirlineName,
+                AirplaneId = f.AirplaneId,
+                AirplaneModel = f.Airplane.AirplaneModel
+            }));
+
+            return FlightsDtos;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <example>
+        /// curl https://localhost:44379/api/FlightData/ListFlightsForAirline/26
+        /// </example>
+        /// <returns></returns>
+        [HttpGet]
+        public IEnumerable<FlightDto> ListFlightsForAirline(int id)
+        {
+            //sending a query to the database
+            List<Flight> Flights = db.Flights.Where(f=>f.AirlineId==id).ToList();
+            List<FlightDto> FlightsDtos = new List<FlightDto>();
+
+            Flights.ForEach(f => FlightsDtos.Add(new FlightDto()
+            {
+                FlightId = f.FlightId,
+                FlightNumber = f.FlightNumber,
+                From = f.From,
+                To = f.To,
+                DepartureAirport = f.DepartureAirport,
+                DestinationAirport = f.DestinationAirport,
+                DepartureTime = f.DepartureTime,
+                ArrivalTime = f.ArrivalTime,
+                TicketPrice = f.TicketPrice,
+                TimeZoneFrom = f.TimeZoneFrom,
+                TimeZoneTo = f.TimeZoneTo,
+                AirlineId = f.Airline.AirlineId,
+                AirlineName = f.Airline.AirlineName,
+                AirplaneId = f.Airplane.AirplaneId,
                 AirplaneModel = f.Airplane.AirplaneModel
             }));
 

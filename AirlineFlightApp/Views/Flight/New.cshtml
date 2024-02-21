@@ -1,4 +1,5 @@
-﻿
+﻿@model AirlineFlightApp.Models.ViewModels.AddFlight
+
 @{
     ViewBag.Title = "New";
 }
@@ -38,10 +39,22 @@
     </div>
 
     <div>
-        <label>Airline Id : </label> <input type="number" name="AirlineId" />
+        <label>Airline : </label> <!-- <input type="number" name="AirlineId" /> -->
+        <select name="AirlineId">
+            @foreach (var airline in Model.AirlinesOptions)
+            {
+                <option value="@airline.AirlineId">@airline.AirlineName</option>
+            }
+        </select>
     </div>
     <div>
-        <label>Airplane Id : </label> <input type="number" name="AirplaneId" />
+        <label>Airplane : </label>   <!-- <input type="number" name="AirplaneId" /> -->
+        <select name="AirplaneId">
+            @foreach (var airplane in Model.AirplanesOptions)
+            {
+                <option value="@airplane.AirplaneId">@airplane.AirplaneModel</option>
+            }
+        </select>
     </div>
 
 

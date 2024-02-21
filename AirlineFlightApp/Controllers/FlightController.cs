@@ -1,4 +1,5 @@
 ﻿using AirlineFlightApp.Models;
+using AirlineFlightApp.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ namespace AirlineFlightApp.Controllers
         static FlightController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44379/api/FlightData/");
+            client.BaseAddress = new Uri("https://localhost:44379/api/");
         }
 
         /// <summary>
@@ -36,7 +37,7 @@ namespace AirlineFlightApp.Controllers
             //communicate with the flight data api to retrieve a list of flights
             //curl https://localhost:44379/api/FlightData/ListFlights
 
-            string url = "ListFlights";
+            string url = "FlightData/ListFlights";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             IEnumerable<FlightDto> flights = response.Content.ReadAsAsync<IEnumerable<FlightDto>>().Result;
@@ -58,7 +59,7 @@ namespace AirlineFlightApp.Controllers
             //communicate with the flight data api to retrieve one flight
             //curl https://localhost:44379/api/FlightData/FindFlight/{id}
 
-            string url = "FindFlight/" + id;
+            string url = "FlightData/FindFlight/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             FlightDto selectedflight = response.Content.ReadAsAsync<FlightDto>().Result;
             return View(selectedflight);
@@ -74,7 +75,25 @@ namespace AirlineFlightApp.Controllers
         /// </returns>
         public ActionResult New()
         {
-            return View();
+            //information of all the airlines and airplanes in the system 
+
+            //instance of ViewModel
+            AddFlight ViewModel = new AddFlight();
+
+            //1. GET api/AirlineData/ListAirlines
+            string url = "AirlineData/ListAirlines";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<AirlineDto> AirlinesOptions = response.Content.ReadAsAsync<IEnumerable<AirlineDto>>().Result;
+            ViewModel.AirlinesOptions = AirlinesOptions;
+
+            //1. GET api/AirplaneData/ListAirplanes
+            url = "AirplaneData/ListAirplanes";
+            response = client.GetAsync(url).Result;
+            IEnumerable<AirplaneDto> AirplanesOptions = response.Content.ReadAsAsync<IEnumerable<AirplaneDto>>().Result;
+            ViewModel.AirplanesOptions = AirplanesOptions;
+
+            //GET api/AirplaneData/ListAirplanes
+            return View(ViewModel);
         }
 
         /// <summary>
@@ -96,7 +115,7 @@ namespace AirlineFlightApp.Controllers
         {
             //objective: add a new flight into the system using the API
             //curl -d @flight.json -H "Content-type: application/json" https://localhost:44379/api/FlightData/AddFlight
-            string url = "AddFlight";
+            string url = "FlightData/AddFlight";
 
             string jsonpayload = jss.Serialize(flight);
 
@@ -129,10 +148,28 @@ namespace AirlineFlightApp.Controllers
         /// </returns>
         public ActionResult Edit(int id)
         {
-            string url = "FindFlight/" + id;
+            //instance of ViewModel
+            UpdateFlight ViewModel = new UpdateFlight();
+
+            //1. The existing flight information
+            string url = "FlightData/FindFlight/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            FlightDto selectedflight = response.Content.ReadAsAsync<FlightDto>().Result;
-            return View(selectedflight);
+            FlightDto SelectedFlight = response.Content.ReadAsAsync<FlightDto>().Result;
+            ViewModel.SelectedFlight = SelectedFlight;
+
+            //2. include all airlines to choose from when updating this flight
+            url = "AirlineData/ListAirlines";
+            response = client.GetAsync(url).Result;
+            IEnumerable<AirlineDto> AirlinesOptions = response.Content.ReadAsAsync<IEnumerable<AirlineDto>>().Result;
+            ViewModel.AirlinesOptions = AirlinesOptions;
+
+            //3. include all airplanes to choose from when updating this flight
+            url = "AirplaneData/ListAirplanes";
+            response = client.GetAsync(url).Result;
+            IEnumerable<AirplaneDto> AirplanesOptions = response.Content.ReadAsAsync<IEnumerable<AirplaneDto>>().Result;
+            ViewModel.AirplanesOptions = AirplanesOptions;
+
+            return View(ViewModel);
         }
 
         /// <summary>
@@ -151,7 +188,7 @@ namespace AirlineFlightApp.Controllers
         {
             //serialize into JSON
             //Send the request to the API
-            string url = "UpdateFlight/" + id;
+            string url = "FlightData/UpdateFlight/" + id;
 
             string jsonpayload = jss.Serialize(flight);
             Debug.WriteLine(jsonpayload);
@@ -185,7 +222,7 @@ namespace AirlineFlightApp.Controllers
         /// </returns>
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "FindFlight/" + id;
+            string url = "FlightData/FindFlight/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             FlightDto selectedflight = response.Content.ReadAsAsync<FlightDto>().Result;
             return View(selectedflight);
@@ -206,7 +243,7 @@ namespace AirlineFlightApp.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            string url = "DeleteFlight/" + id;
+            string url = "FlightData/DeleteFlight/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;
