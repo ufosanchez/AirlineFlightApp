@@ -110,6 +110,44 @@ namespace AirlineFlightApp.Controllers
 
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <example>
+        /// curl https://localhost:44379/api/FlightData/ListFlightsForAirplane/31
+        /// </example>
+        /// <returns></returns>
+        [HttpGet]
+        public IEnumerable<FlightDto> ListFlightsForAirplane(int id)
+        {
+            //sending a query to the database
+            List<Flight> Flights = db.Flights.Where(f => f.AirplaneId == id).ToList();
+            List<FlightDto> FlightsDtos = new List<FlightDto>();
+
+            Flights.ForEach(f => FlightsDtos.Add(new FlightDto()
+            {
+                FlightId = f.FlightId,
+                FlightNumber = f.FlightNumber,
+                From = f.From,
+                To = f.To,
+                DepartureAirport = f.DepartureAirport,
+                DestinationAirport = f.DestinationAirport,
+                DepartureTime = f.DepartureTime,
+                ArrivalTime = f.ArrivalTime,
+                TicketPrice = f.TicketPrice,
+                TimeZoneFrom = f.TimeZoneFrom,
+                TimeZoneTo = f.TimeZoneTo,
+                AirlineId = f.Airline.AirlineId,
+                AirlineName = f.Airline.AirlineName,
+                AirplaneId = f.Airplane.AirplaneId,
+                AirplaneModel = f.Airplane.AirplaneModel
+            }));
+
+            return FlightsDtos;
+        }
+
+
+        /// <summary>
         /// This GET method returns an individual flight from the database by specifying the primary key FlightId
         /// Additionally, this method will allow you to collect the information on the Foreign Key IDs as well as the airline and the plane model.
         /// since these will be requested in Details View as well as in Edit View

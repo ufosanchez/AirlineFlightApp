@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Diagnostics;
+using AirlineFlightApp.Models.ViewModels;
 
 namespace AirlineFlightApp.Controllers
 {
@@ -19,7 +20,7 @@ namespace AirlineFlightApp.Controllers
         static AirplaneController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44379/api/AirplaneData/");
+            client.BaseAddress = new Uri("https://localhost:44379/api/");
         }
 
         /// <summary>
@@ -36,7 +37,7 @@ namespace AirlineFlightApp.Controllers
             //communicate with the airplane data api to retrieve a list of airplanes
             //curl https://localhost:44379/api/AirplaneData/ListAirplanes
 
-            string url = "ListAirplanes";
+            string url = "AirplaneData/ListAirplanes";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             IEnumerable<AirplaneDto> airplanes = response.Content.ReadAsAsync<IEnumerable<AirplaneDto>>().Result;
@@ -58,12 +59,23 @@ namespace AirlineFlightApp.Controllers
             //communicate with the airplane data api to retrieve one airplane
             //curl https://localhost:44379/api/AirplaneData/FindAirplane/{id}
 
-            string url = "FindAirplane/" + id;
+            //instance of ViewModel
+            DetailsAirplane ViewModel = new DetailsAirplane();
+
+            string url = "AirplaneData/FindAirplane/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
+            AirplaneDto SelectedAirplane = response.Content.ReadAsAsync<AirplaneDto>().Result;
+            ViewModel.SelectedAirplane = SelectedAirplane;
 
-            AirplaneDto selectedairplane = response.Content.ReadAsAsync<AirplaneDto>().Result;
 
-            return View(selectedairplane);
+            //showcase information about Flights related to this Airplane -> ListFlightsForAirplane
+            //send a request to gather information about Flights related to a particular ID 
+            url = "FlightData/ListFlightsForAirplane/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<FlightDto> RelatedFlights = response.Content.ReadAsAsync<IEnumerable<FlightDto>>().Result;
+            ViewModel.RelatedFlights = RelatedFlights;
+
+            return View(ViewModel);
         }
 
         /// <summary>
@@ -100,7 +112,7 @@ namespace AirlineFlightApp.Controllers
 
             //objective: add a new airplane into the system using the API
             //curl -d @airplane.json -H "Content-type: application/json" https://localhost:44379/api/AirplaneData/AddAirplane 
-            string url = "AddAirplane";
+            string url = "AirplaneData/AddAirplane";
 
             string jsonpayload = jss.Serialize(airplane);
 
@@ -133,7 +145,7 @@ namespace AirlineFlightApp.Controllers
         /// </returns>
         public ActionResult Edit(int id)
         {
-            string url = "FindAirplane/" + id;
+            string url = "AirplaneData/FindAirplane/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             AirplaneDto selectedairplane = response.Content.ReadAsAsync<AirplaneDto>().Result;
@@ -157,7 +169,7 @@ namespace AirlineFlightApp.Controllers
         {
             //serialize into JSON
             //Send the request to the API
-            string url = "UpdateAirplane/" + id;
+            string url = "AirplaneData/UpdateAirplane/" + id;
 
             string jsonpayload = jss.Serialize(airplane);
             Debug.WriteLine(jsonpayload);
@@ -188,7 +200,7 @@ namespace AirlineFlightApp.Controllers
         /// </returns>
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "FindAirplane/" + id;
+            string url = "AirplaneData/FindAirplane/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             AirplaneDto selectedairplane = response.Content.ReadAsAsync<AirplaneDto>().Result;
             return View(selectedairplane);
@@ -209,7 +221,7 @@ namespace AirlineFlightApp.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            string url = "DeleteAirplane/" + id;
+            string url = "AirplaneData/DeleteAirplane/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;
