@@ -77,5 +77,6 @@ namespace AirlineFlightApp.Models
 
         public int AirplaneId { get; set; }
         public string AirplaneModel { get; set; }
+        public string RegistrationNum { get; set; }
     }
 }

@@ -24,7 +24,7 @@
 <div><strong>Contact number: </strong> @Model.SelectedAirline.ContactNumber</div>
 
 <div style="margin-top:50px;">
-    <h3>Flights related to the Airline <span style="font-weight:bold">@Model.SelectedAirline.AirlineName</span></h3>
+    <h3>Flights related to <span style="font-weight:bold">@Model.SelectedAirline.AirlineName</span></h3>
 
     @{
         if (Model.RelatedFlights == null || !Model.RelatedFlights.Any())
@@ -33,14 +33,37 @@
         }
         else
         {
-            <ul>
+            <ol>
                 @foreach (var flight in Model.RelatedFlights)
                 {
                     <li>
                         <a href="/Flight/Details/@flight.FlightId">@flight.FlightNumber -- Date: @flight.DepartureTime.ToString("yyyy-MM-dd h:mm tt")</a>
                     </li>
                 }
-            </ul>
+            </ol>
+        }
+    }
+
+</div>
+
+<div style="margin-top:50px;">
+    <h3>Airplanes related to <span style="font-weight:bold">@Model.SelectedAirline.AirlineName</span></h3>
+
+    @{
+        if (Model.RelatedAirplanes == null || !Model.RelatedAirplanes.Any())
+        {
+            <p> **This Airline does not have any Airplane</p>
+        }
+        else
+        {
+            <ol>
+                @foreach (var airplane in Model.RelatedAirplanes)
+                {
+                    <li>
+                        <a href="/Airplane/Details/@airplane.AirplaneId">Registration Num: @airplane.RegistrationNum <br/> Model: @airplane.AirplaneModel</a>
+                    </li>
+                }
+            </ol>
         }
     }
 

@@ -10,6 +10,7 @@ namespace AirlineFlightApp.Models.ViewModels
 
         public AirlineDto SelectedAirline { get; set; }
         public IEnumerable<FlightDto> RelatedFlights { get; set; }
+        public IEnumerable<FlightDto> RelatedAirplanes { get; set; }
 
     }
 }

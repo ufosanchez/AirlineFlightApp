@@ -146,6 +146,54 @@ namespace AirlineFlightApp.Controllers
             return FlightsDtos;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <example>
+        /// curl https://localhost:44379/api/FlightData/ListPlanesForAirline/26
+        /// </example>
+        /// <returns></returns>
+        [HttpGet]
+        public IEnumerable<FlightDto> ListPlanesForAirline(int id)
+        {
+            //sending a query to the database
+            List<Flight> Flights = db.Flights.Where(f => f.AirlineId == id).ToList();
+            List<FlightDto> FlightsDtos = new List<FlightDto>();
+
+            Flights.ForEach(f => FlightsDtos.Add(new FlightDto()
+            {
+                FlightId = f.FlightId,
+                FlightNumber = f.FlightNumber,
+                From = f.From,
+                To = f.To,
+                DepartureAirport = f.DepartureAirport,
+                DestinationAirport = f.DestinationAirport,
+                DepartureTime = f.DepartureTime,
+                ArrivalTime = f.ArrivalTime,
+                TicketPrice = f.TicketPrice,
+                TimeZoneFrom = f.TimeZoneFrom,
+                TimeZoneTo = f.TimeZoneTo,
+                AirlineId = f.Airline.AirlineId,
+                AirlineName = f.Airline.AirlineName,
+                AirplaneId = f.Airplane.AirplaneId,
+                AirplaneModel = f.Airplane.AirplaneModel,
+                RegistrationNum = f.Airplane.RegistrationNum
+            }));
+
+            List<FlightDto> FlightsDtosUnique = FlightsDtos
+            .GroupBy(flight => flight.RegistrationNum)
+            .Select(group => group.First())
+            .ToList();
+
+            foreach (var flight in FlightsDtosUnique)
+            {
+                Debug.WriteLine($"Name: {flight.AirplaneModel}, Valor: {flight.RegistrationNum}");
+            }
+
+            return FlightsDtosUnique;
+        }
+
 
         /// <summary>
         /// This GET method returns an individual flight from the database by specifying the primary key FlightId

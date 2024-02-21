@@ -85,6 +85,23 @@ namespace AirlineFlightApp.Controllers
             IEnumerable<FlightDto> RelatedFlights = response.Content.ReadAsAsync<IEnumerable<FlightDto>>().Result;
             ViewModel.RelatedFlights = RelatedFlights;
 
+            /*showcase information about Airplanes related to this Airline -> ListPlanesForAirline
+            send a request to gather information about Flights related to a particular ID 
+            The flights will hold information about the AirplaneModel and RegistrationNum
+            Even though there will be repeated airplanes, only the first one is selected, this was done by
+            
+            List<FlightDto> FlightsDtosUnique = FlightsDtos
+            .GroupBy(flight => flight.RegistrationNum)
+            .Select(group => group.First())
+            .ToList();
+
+            This is through LINQ that grouped the airplanes through the RegistrationNum and then only selected the 
+            first element of the group, thus allowing not to have duplicate airplanes*/
+            url = "FlightData/ListPlanesForAirline/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<FlightDto> RelatedAirplanes = response.Content.ReadAsAsync<IEnumerable<FlightDto>>().Result;
+            ViewModel.RelatedAirplanes = RelatedAirplanes;
+
             return View(ViewModel);
         }
 
