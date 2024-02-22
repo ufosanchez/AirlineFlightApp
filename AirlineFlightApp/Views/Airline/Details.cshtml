@@ -37,7 +37,7 @@
                 @foreach (var flight in Model.RelatedFlights)
                 {
                     <li>
-                        <a href="/Flight/Details/@flight.FlightId">@flight.FlightNumber -- Date: @flight.DepartureTime.ToString("yyyy-MM-dd h:mm tt")</a>
+                        <a href="/Flight/Details/@flight.FlightId">@flight.FlightNumber -- Date: @flight.DepartureTime.ToString("yyyy-MM-dd h:mm tt")</a> <a href="/Flight/DeleteConfirm/@flight.FlightId" style="font-weight: bold; color: red">[x]</a>
                     </li>
                 }
             </ol>
