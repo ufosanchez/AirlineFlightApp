@@ -32,13 +32,15 @@ namespace AirlineFlightApp.Controllers
         /// <returns>
         /// Returns the List View, which will display a list of the airlines in the system. Each of the airlines in the database will be of the datatype AirlineDto.
         /// </returns>
-        public ActionResult List()
+        public ActionResult List(string AirlineSearch = null)
         {
             //communicate with the airline data api to retrieve a list of airlines
             //curl https://localhost:44379/api/AirlineData/ListAirlines
 
-            string url = "AirlineData/ListAirlines";
+            string url = "AirlineData/ListAirlines/" + AirlineSearch;
             HttpResponseMessage response = client.GetAsync(url).Result;
+
+            Debug.WriteLine(url);
 
             //Debug.WriteLine("The response code is ");
             //Debug.WriteLine(response.StatusCode);

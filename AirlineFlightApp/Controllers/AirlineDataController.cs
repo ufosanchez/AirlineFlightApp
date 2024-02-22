@@ -45,11 +45,18 @@ namespace AirlineFlightApp.Controllers
         /// {"AirlineId":24,"AirlineName":"WestJet Airlines Ltd.","Country":"Canada","Headquarters":"Calgary, Alberta, Canada","FounderName":"Clive Beddoe","FoundingYear":"1994-06-27T00:00:00","Website":"https://www.westjet.com/en-ca","ContactNumber":"18889378538"}]
         /// </returns>
         [HttpGet]
-        //[Route("api/AirlineData/ListAirlines")]
-        public IEnumerable<AirlineDto> ListAirlines()
+        [Route("api/AirlineData/ListAirlines/{AirlineSearch?}")]
+        public IEnumerable<AirlineDto> ListAirlines(string AirlineSearch = null)
         {
             //sending a query to the database
-            List<Airline> Airlines = db.Airlines.ToList();
+
+            List<Airline> Airlines = new List<Airline>();
+            if (AirlineSearch == null)
+            {
+                Airlines = db.Airlines.ToList();
+            } else {
+                Airlines = db.Airlines.Where(a => a.AirlineName.ToLower().Contains(AirlineSearch.ToLower())).ToList();
+            }
             List<AirlineDto> AirlinesDtos = new List<AirlineDto>();
 
             Airlines.ForEach(a => AirlinesDtos.Add(new AirlineDto()
