@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using AirlineFlightApp.Migrations;
 
 namespace AirlineFlightApp.Controllers
 {
@@ -40,10 +41,18 @@ namespace AirlineFlightApp.Controllers
         /// {"AirplaneId":28,"AirplaneModel":"Airbus A321-231","RegistrationNum":"N110AN","ManufacturerName":"Airbus S.A.S.","ManufactureYear":"2014-02-26T00:00:00","MaxPassenger":220,"EngineModel":"2 CFM Intl. CFM56-5B3/2P","Speed":904.00,"Range":5600.00}]
         /// </returns>
         [HttpGet]
-        public IEnumerable<AirplaneDto> ListAirplanes()
+        [Route("api/AirplaneData/ListAirplanes/{AirplaneSearch?}")]
+        public IEnumerable<AirplaneDto> ListAirplanes(string AirplaneSearch = null)
         {
             //sending a query to the database
-            List<Airplane> Airplanes = db.Airplanes.ToList();
+
+            List<Airplane> Airplanes = new List<Airplane>();
+            if (AirplaneSearch == null)
+            {
+                Airplanes = db.Airplanes.ToList();
+            } else {
+                Airplanes = db.Airplanes.Where(a => a.AirplaneModel.ToLower().Contains(AirplaneSearch.ToLower())).ToList();
+            }
             List<AirplaneDto> AirplanesDtos = new List<AirplaneDto>();
 
             Airplanes.ForEach(a => AirplanesDtos.Add(new AirplaneDto()

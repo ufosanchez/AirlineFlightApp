@@ -32,13 +32,15 @@ namespace AirlineFlightApp.Controllers
         /// <returns>
         /// Returns the List View, which will display a list of the airplanes in the system. Each of the airplanes in the database will be of the datatype AirplaneDto.
         /// </returns>
-        public ActionResult List()
+        public ActionResult List(string AirplaneSearch = null)
         {
             //communicate with the airplane data api to retrieve a list of airplanes
             //curl https://localhost:44379/api/AirplaneData/ListAirplanes
 
-            string url = "AirplaneData/ListAirplanes";
+            string url = "AirplaneData/ListAirplanes/" + AirplaneSearch;
             HttpResponseMessage response = client.GetAsync(url).Result;
+
+            Debug.WriteLine(url);
 
             IEnumerable<AirplaneDto> airplanes = response.Content.ReadAsAsync<IEnumerable<AirplaneDto>>().Result;
 

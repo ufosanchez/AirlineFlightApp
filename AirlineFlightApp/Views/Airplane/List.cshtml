@@ -6,6 +6,12 @@
 <h2>List of Airplanes in the system</h2>
 
 <a href="/Airplane/New">New Airplane</a>
+
+<form action="/Airplane/List" method="GET">
+    <input type="text" name="AirplaneSearch" />
+    <input type="submit" value="Search">
+</form>
+
 @foreach (var airplane in Model)
 {
     <h2><a href="/Airplane/Details/@airplane.AirplaneId">@airplane.AirplaneModel</a></h2>
