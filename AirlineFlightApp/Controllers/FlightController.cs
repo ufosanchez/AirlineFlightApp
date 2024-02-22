@@ -61,10 +61,50 @@ namespace AirlineFlightApp.Controllers
             //communicate with the flight data api to retrieve one flight
             //curl https://localhost:44379/api/FlightData/FindFlight/{id}
 
+            //instance of ViewModel
+            DetailsFlight ViewModel = new DetailsFlight();
+
             string url = "FlightData/FindFlight/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             FlightDto selectedflight = response.Content.ReadAsAsync<FlightDto>().Result;
-            return View(selectedflight);
+
+            ViewModel.SelectedFlight = selectedflight;
+
+            Debug.WriteLine("departure time: " + selectedflight.DepartureTime);
+            Debug.WriteLine("arrival time: " + selectedflight.ArrivalTime);
+
+            /* ---------- handle time difference to get flight duration ---------- */
+
+            DateTime departureDate = DateTime.Parse(selectedflight.DepartureTime.ToString());
+            DateTime arrivalDate = DateTime.Parse(selectedflight.ArrivalTime.ToString());
+
+            try
+            {
+
+                DateTime convertDeparture = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(departureDate, selectedflight.TimeZoneFrom, selectedflight.TimeZoneTo);
+
+                TimeSpan timeDifference = arrivalDate - convertDeparture;
+                int Hours = (int)timeDifference.TotalHours;
+                int Minutes = timeDifference.Minutes;
+
+                Debug.WriteLine("duratiion" + Hours + ":" + Minutes);
+
+                ViewModel.FlightDuration = Hours + "h "+ Minutes +"min";
+            }
+
+            // in order to check if the time zone ID was not found on the local computer.
+            catch (TimeZoneNotFoundException)
+            {
+                Debug.WriteLine("One of the time zone ID was not found on the local computer");
+            }
+            catch (InvalidTimeZoneException)
+            {
+                Debug.WriteLine("One of the time zone ID has been corrupted.");
+            }
+
+            /* ---------- handle time difference to get flight duration ---------- */
+
+            return View(ViewModel);
         }
 
         /// <summary>
