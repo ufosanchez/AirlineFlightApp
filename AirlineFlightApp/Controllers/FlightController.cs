@@ -32,13 +32,15 @@ namespace AirlineFlightApp.Controllers
         /// <returns>
         /// Returns the List View, which will display a list of the flights in the system. Each of the flights in the database will be of the datatype FlightDto.
         /// </returns>
-        public ActionResult List()
+        public ActionResult List(string FlightSearch = null)
         {
             //communicate with the flight data api to retrieve a list of flights
             //curl https://localhost:44379/api/FlightData/ListFlights
 
-            string url = "FlightData/ListFlights";
+            string url = "FlightData/ListFlights/" + FlightSearch;
             HttpResponseMessage response = client.GetAsync(url).Result;
+
+            Debug.WriteLine(url);
 
             IEnumerable<FlightDto> flights = response.Content.ReadAsAsync<IEnumerable<FlightDto>>().Result;
 

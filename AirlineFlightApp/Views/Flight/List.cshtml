@@ -6,6 +6,12 @@
 <h2>List of Flights in the system</h2>
 
 <a href="/Flight/New">New Flight</a>
+
+<form action="/Flight/List" method="GET">
+    <input type="text" name="FlightSearch" />
+    <input type="submit" value="Search">
+</form>
+
 @foreach (var flight in Model)
 {
     <h2><a href="/Flight/Details/@flight.FlightId">@flight.FlightNumber</a></h2>

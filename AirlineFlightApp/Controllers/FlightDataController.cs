@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using AirlineFlightApp.Migrations;
 
 namespace AirlineFlightApp.Controllers
 {
@@ -43,10 +44,18 @@ namespace AirlineFlightApp.Controllers
         /// {"FlightId":22,"FlightNumber":"AC 8607","From":"Boston","To":"Montreal","DepartureAirport":"Boston Logan International Airport (BOS)","DestinationAirport":"Montréal-Pierre Elliott Trudeau International Airport (YUL)","DepartureTime":"2024-02-06T15:40:00","ArrivalTime":"2024-02-06T17:08:00","TicketPrice":661.00,"TimeZoneFrom":"Eastern Standard Time","TimeZoneTo":"Eastern Standard Time","AirlineId":0,"AirlineName":"Air Canada","AirplaneId":0,"AirplaneModel":"Embraer E175SU\r\n"}]
         /// </returns>
         [HttpGet]
-        public IEnumerable<FlightDto> ListFlights()
+        [Route("api/FlightData/ListFlights/{FlightSearch?}")]
+        public IEnumerable<FlightDto> ListFlights(string FlightSearch = null)
         {
             //sending a query to the database
-            List<Flight> Flights = db.Flights.ToList();
+
+            List<Flight> Flights = new List<Flight>();
+            if (FlightSearch == null)
+            {
+                Flights = db.Flights.ToList();
+            } else {
+                Flights = db.Flights.Where(f => f.FlightNumber.ToLower().Contains(FlightSearch.ToLower())).ToList();
+            }
             List<FlightDto> FlightsDtos = new List<FlightDto>();
 
             Flights.ForEach(f => FlightsDtos.Add(new FlightDto()
