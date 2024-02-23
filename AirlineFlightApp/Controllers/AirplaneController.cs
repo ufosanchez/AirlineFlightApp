@@ -24,13 +24,21 @@ namespace AirlineFlightApp.Controllers
         }
 
         /// <summary>
-        /// GET: Airplane/List
+        /// 1. GET: Airplane/List
         /// This GET method is responsible for making the call to the airplane API, in which it will collect the list of airplanes and provide the collected information to the View.
         /// This code is responsible for utilizing the client.BaseAddress and calling the ListAirplanes method
         /// Go to  -> /Views/Airplane/List.cshtml
+        /// 
+        /// 2. GET: Airplane/List?AirplaneSearch=airbus
+        /// this will happen when the user provides a searck key in the form, this will display all the Airplanes that contains the AirplaneSearch = airbus
+        /// Go to  -> /Views/Airplane/List.cshtml
         /// </summary>
+        /// <param name="AirplaneSearch">This parameter is String type and it will holde the value given ny the user, in case that the user doesn not provide a value it will be null and it will return all the list of Airplanes in the system
+        /// If the user provide a value. it will provide to the view all the Airplanes that contains the AirplaneSearch parameter</param>
         /// <returns>
         /// Returns the List View, which will display a list of the airplanes in the system. Each of the airplanes in the database will be of the datatype AirplaneDto.
+        /// 
+        /// Additionally, if the AirplaneSearch != null it will display all the Airplanes that contains the AirplaneSearch
         /// </returns>
         public ActionResult List(string AirplaneSearch = null)
         {
@@ -49,12 +57,14 @@ namespace AirlineFlightApp.Controllers
 
         /// <summary>
         /// GET: Airplane/Details/{id}
-        /// This GET method will be responsible for calling the FindAirplane method from the airplane API and returning the view with the API response.
+        /// This GET method will be responsible for calling the FindAirplane method from the airplane API, as well as the Related method in order to show the flighst of a particular airplane FlightData/ListFlightsForAirplane/ + id.
+        /// This method will return a ViewModel that holds the SelectedAirplane and RelatedFlights (Related method)
+        /// RelatedFlights => List of flights for a specific Airplane
         /// Go to  -> /Views/Airplane/Details.cshtml
         /// </summary>
         /// <param name="id">This is an int datatype parameter of the airplane you want to find.</param>
         /// <returns>
-        /// Return the Details View of the airplane found by the ID given in the URL. This airplane will be of the datatype AirplaneDto
+        /// It will return a ViewModel of type DetailsAirplane this viewmodel will allow the view to acces to the SelectedAirplane (airplane found by the ID given in the URL) and RelatedFlights
         /// </returns>
         public ActionResult Details(int id)
         {

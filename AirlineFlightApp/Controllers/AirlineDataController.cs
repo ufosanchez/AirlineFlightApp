@@ -25,14 +25,24 @@ namespace AirlineFlightApp.Controllers
         /// This is a GET method that will return a list of all the airlines in the system. This method presents a foreach that will be responsible 
         /// for setting each of the AirlineDto objects with the corresponding information. To do this, the information must first be collected, which will be a list of Airline datatypes. 
         /// Once this is done, the foreach will be run to have each of the data types as AirlineDto.
+        /// 
+        /// Additionally it will accept a search key, this was used in order to filter the list, the concept it's the same but will accept nother parameter in the URL
         /// </summary>
         /// <example>
         /// Using browser => GET: api/AirlineData/ListAirlines
         /// 
         /// Using curl comands in the terminal => curl https://localhost:44379/api/AirlineData/ListAirlines
+        /// 
+        /// Using browser with a search key => GET: api/AirlineData/ListAirlines/avianca
+        /// 
+        /// Using curl comands in the terminal => curl https://localhost:44379/api/AirlineData/ListAirlines/avianca
         /// </example>
+        /// <param name="AirlineSearch">This is the search key, the api will use it to look for this specific Airline
+        /// if the user does not enter a search key the GET method will display the list of all the Airlines otherwise, it will display the 
+        /// Airlines that Contains the search key. Additionally, its case insensitive
+        /// </param>
         /// <returns>
-        /// A list of Airlines in the system
+        /// A list of Airlines in the system or the airlines that contains the string given on the AirlineSearch parameter
         /// 
         /// GET: api/AirlineData/ListAirlines =>
         /// [{"AirlineId":22,"AirlineName":"United Airlines","Country":"United States","Headquarters":"Willis Tower, Chicago, Illinois U.S.","FounderName":"Walter Varney","FoundingYear":"1926-04-06T00:00:00","Website":"https://www.united.com/en/us","ContactNumber":"18008648331"},
@@ -43,6 +53,14 @@ namespace AirlineFlightApp.Controllers
         /// [{"AirlineId":22,"AirlineName":"United Airlines","Country":"United States","Headquarters":"Willis Tower, Chicago, Illinois U.S.","FounderName":"Walter Varney","FoundingYear":"1926-04-06T00:00:00","Website":"https://www.united.com/en/us","ContactNumber":"18008648331"},
         /// {"AirlineId":23,"AirlineName":"Lynx Air","Country":"Canada","Headquarters":"Calgary, Alberta, Canada","FounderName":"Tim Morgan","FoundingYear":"2006-09-06T00:00:00","Website":"https://www.flylynx.com/en#refreshforced","ContactNumber":"18778975969"},
         /// {"AirlineId":24,"AirlineName":"WestJet Airlines Ltd.","Country":"Canada","Headquarters":"Calgary, Alberta, Canada","FounderName":"Clive Beddoe","FoundingYear":"1994-06-27T00:00:00","Website":"https://www.westjet.com/en-ca","ContactNumber":"18889378538"}]
+        /// 
+        ///     Search key example
+        /// curl https://localhost:44379/api/AirlineData/ListAirlines/avianca
+        /// [{"AirlineId":32,"AirlineName":"Avianca","Country":"Colombia","Headquarters":"Bogotá, Colombia","FounderName":"Ernesto Cortissoz","FoundingYear":"2024-02-07T00:00:00","Website":"https://www.avianca.com/es/","ContactNumber":"8007228222"}]
+        /// 
+        /// curl https://localhost:44379/api/AirlineData/ListAirlines/ET
+        /// [{"AirlineId":24,"AirlineName":"WestJet Airlines Ltd.","Country":"Canada","Headquarters":"Calgary, Alberta, Canada","FounderName":"Clive Beddoe","FoundingYear":"1994-06-27T00:00:00","Website":"https://www.westjet.com/en-ca","ContactNumber":"18889378538"},
+        /// {"AirlineId":27,"AirlineName":"JetBlue\r\n","Country":"United States\r\n","Headquarters":"Brewster Building Long Island City, New York City, U.S.\r\n","FounderName":"David Neeleman\r\n","FoundingYear":"1998-08-01T00:00:00","Website":"https://www.jetblue.com/\r\n","ContactNumber":"18558385841\r\n"}]
         /// </returns>
         [HttpGet]
         [Route("api/AirlineData/ListAirlines/{AirlineSearch?}")]
@@ -51,10 +69,16 @@ namespace AirlineFlightApp.Controllers
             //sending a query to the database
 
             List<Airline> Airlines = new List<Airline>();
+            /*if the search is not given == null, the API will return all the Airlines in the system */
             if (AirlineSearch == null)
             {
                 Airlines = db.Airlines.ToList();
-            } else {
+            }
+            /* if the search is different than null means that the user provide a string to filter the Airlines 
+            when this occurs the API will look for the AirlineName that contains the AirlineSearch parameter. The
+            ToLower was used in order to make it case insensitive*/
+            else
+            {
                 Airlines = db.Airlines.Where(a => a.AirlineName.ToLower().Contains(AirlineSearch.ToLower())).ToList();
             }
             List<AirlineDto> AirlinesDtos = new List<AirlineDto>();

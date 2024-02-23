@@ -22,12 +22,21 @@ namespace AirlineFlightApp.Controllers
         /// This is a GET method that will return a list of all the airplanes in the system. This method presents a foreach that will be responsible 
         /// for setting each of the AirplaneDto objects with the corresponding information. To do this, the information must first be collected, which will be a list of Airplane datatypes. 
         /// Once this is done, the foreach will be run to have each of the data types as AirplaneDto.
+        /// 
+        /// the extra feature was made for this entity so the list can filter when a user provides a value in the search bar, this value will be part of the URl cause the AirplaneSearch will store this value given
         /// </summary>
         /// <example>
         /// Using browser => GET: api/AirplaneData/ListAirplanes
         /// 
         /// Using curl comands in the terminal => curl https://localhost:44379/api/AirplaneData/ListAirplanes
+        /// 
+        /// Using browser with a search key => GET: api/AirplaneData/ListAirplanes
+        /// 
+        /// Using curl comands in the terminal => curl https://localhost:44379/api/AirplaneData/ListAirplanes
         /// </example>
+        /// <param name="AirplaneSearch">This is the search key, the api will use it to look for this specific Airplane
+        /// if the user does not enter a search key the GET method will display the list of all the Airplanes otherwise, it will display the 
+        /// Airplanes that Contains the search key. Additionally, its case insensitive</param>
         /// <returns>
         /// A list of Airplanes in the system
         /// GET: api/AirplaneData/ListAirplanes =>
@@ -39,6 +48,13 @@ namespace AirlineFlightApp.Controllers
         /// [{"AirplaneId":24,"AirplaneModel":"Embraer E175SU","RegistrationNum":"C-FEKD","ManufacturerName":"Brazilian aerospace manufacturer Embraer","ManufactureYear":"2021-04-28T00:00:00","MaxPassenger":88,"EngineModel":"2 General Electric CF34-8E","Speed":870.00,"Range":3704.00},
         /// {"AirplaneId":25,"AirplaneModel":"Airbus A321-231","RegistrationNum":"N115NN","ManufacturerName":"Airbus S.A.S.","ManufactureYear":"2014-05-02T00:00:00","MaxPassenger":220,"EngineModel":"2 CFM Intl. CFM56-5B3/2P","Speed":904.00,"Range":5600.00},
         /// {"AirplaneId":28,"AirplaneModel":"Airbus A321-231","RegistrationNum":"N110AN","ManufacturerName":"Airbus S.A.S.","ManufactureYear":"2014-02-26T00:00:00","MaxPassenger":220,"EngineModel":"2 CFM Intl. CFM56-5B3/2P","Speed":904.00,"Range":5600.00}]
+        /// 
+        /// 
+        ///     Search key example
+        /// curl https://localhost:44379/api/AirplaneData/ListAirplanes/airbus
+        /// [{"AirplaneId":25,"AirplaneModel":"Airbus A321-231\r\n","RegistrationNum":"N115NN\r\n","ManufacturerName":"Airbus S.A.S.\r\n","ManufactureYear":"2014-05-02T00:00:00","MaxPassenger":220,"EngineModel":"2 CFM Intl. CFM56-5B3/2P\r\n","Speed":904.00,"Range":5600.00},
+        /// {"AirplaneId":28,"AirplaneModel":"Airbus A321-231\r\n","RegistrationNum":"N110AN\r\n","ManufacturerName":"Airbus S.A.S.\r\n","ManufactureYear":"2014-02-26T00:00:00","MaxPassenger":220,"EngineModel":"2 CFM Intl. CFM56-5B3/2P\r\n","Speed":904.00,"Range":5600.00},
+        /// { "AirplaneId":35,"AirplaneModel":"Airbus A220-300\r\n","RegistrationNum":"C-GMZN\r\n","ManufacturerName":"Airbus S.A.S.\r\n","ManufactureYear":"2020-11-17T00:00:00","MaxPassenger":160,"EngineModel":"2 Pratt & Whitney PW1500G\r\n","Speed":871.00,"Range":6700.00}]
         /// </returns>
         [HttpGet]
         [Route("api/AirplaneData/ListAirplanes/{AirplaneSearch?}")]
@@ -47,10 +63,16 @@ namespace AirlineFlightApp.Controllers
             //sending a query to the database
 
             List<Airplane> Airplanes = new List<Airplane>();
+            /*if the search is not given == null, the API will return all the Airplanes in the system */
             if (AirplaneSearch == null)
             {
                 Airplanes = db.Airplanes.ToList();
-            } else {
+            }
+            /* if the search is different than null means that the user provide a string to filter the Airplanes 
+            when this occurs the API will look for the AirplaneModel that contains the AirplaneSearch parameter. The
+            ToLower was used in order to make it case insensitive*/
+            else
+            {
                 Airplanes = db.Airplanes.Where(a => a.AirplaneModel.ToLower().Contains(AirplaneSearch.ToLower())).ToList();
             }
             List<AirplaneDto> AirplanesDtos = new List<AirplaneDto>();

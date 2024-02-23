@@ -24,13 +24,22 @@ namespace AirlineFlightApp.Controllers
         }
 
         /// <summary>
-        /// GET: Airline/List
+        /// 1. GET: Airline/List
         /// This GET method is responsible for making the call to the airline API, in which it will collect the list of airlines and provide the collected information to the View.
         /// This code is responsible for utilizing the client.BaseAddress and calling the ListAirlines method
         /// Go to  -> /Views/Airline/List.cshtml
+        /// 
+        /// 2. GET: Airline/List?AirlineSearch=can
+        /// this will happen when the user provides a searck key in the form, this will display all the Airlines that contains the AirlineSearch = can
+        /// Go to  -> /Views/Airline/List.cshtml
         /// </summary>
+        /// <param name="AirlineSearch">This parameter is type string and it's function is to search for a specific Airline, if it is not given
+        /// it will take the value of null and it will show all the Airline sin the system. If the user provides a string, this controller will provide the Airlines
+        /// that contains the string given</param>
         /// <returns>
         /// Returns the List View, which will display a list of the airlines in the system. Each of the airlines in the database will be of the datatype AirlineDto.
+        /// 
+        /// Additionally, if the AirlineSearch != null it will display all the Airlines that contains the AirlineSearch
         /// </returns>
         public ActionResult List(string AirlineSearch = null)
         {
@@ -54,12 +63,15 @@ namespace AirlineFlightApp.Controllers
 
         /// <summary>
         /// GET: Airline/Details/{id}
-        /// This GET method will be responsible for calling the FindAirline method from the airline API and returning the view with the API response.
+        /// This GET method will be responsible for calling the FindAirline method from the airline,the FlightData/ListFlightsForAirline/ + id and the FlightData/ListPlanesForAirline/ + id.
+        /// Because this time the method will return a ViewModels that holds the SelectedAirline, RelatedFlights (Related method) and RelatedAirplanes (Related method)
+        /// RelatedFlights => List of flights for airline
+        /// RelatedAirplanes => List of airplanes that a Airline has
         /// Go to  -> /Views/Airline/Details.cshtml
         /// </summary>
         /// <param name="id">This is an int datatype parameter of the airline you want to find.</param>
         /// <returns>
-        /// Return the Details View of the airline found by the ID given in the URL. This airline will be of the datatype AirlineDto
+        /// It will return a ViewModel of type DetailsAirline this viewmodel will allow the view to acces to the SelectedAirline (airline found by the ID given in the URL), RelatedFlights and RelatedAirplanes
         /// </returns>
         public ActionResult Details(int id)
         {

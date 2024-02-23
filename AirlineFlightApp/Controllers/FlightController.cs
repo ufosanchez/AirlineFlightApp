@@ -24,13 +24,22 @@ namespace AirlineFlightApp.Controllers
         }
 
         /// <summary>
-        /// GET: Flight/List
+        /// 1. GET: Flight/List
         /// This GET method is responsible for making the call to the flight API, in which it will collect the list of flights and provide the collected information to the View.
         /// This code is responsible for utilizing the client.BaseAddress and calling the ListFlights method
         /// Go to  -> /Views/Flight/List.cshtml
+        /// 
+        /// 2. GET: Flight/List?FlightSearch=UA
+        /// this will happen when the user provides a searck key in the form, this will display all the Flights that contains the FlightSearch = UA
+        /// Go to  -> /Views/Airline/List.cshtml
         /// </summary>
+        /// <param name="FlightSearch">This parameter is type string and it's function is to search for a specific FLight, if it is not given
+        /// it will take the value of null and it will show all the Flights in the system. If the user provides a string, this controller will provide the Flights
+        /// that contains the string given</param>
         /// <returns>
         /// Returns the List View, which will display a list of the flights in the system. Each of the flights in the database will be of the datatype FlightDto.
+        /// 
+        /// Additionally, if the FlightSearch != null it will display all the Flights that contains the FlightSearch
         /// </returns>
         public ActionResult List(string FlightSearch = null)
         {
@@ -49,7 +58,8 @@ namespace AirlineFlightApp.Controllers
 
         /// <summary>
         /// GET: Flight/Details/{id}
-        /// This GET method will be responsible for calling the FindFlight method from the flight API and returning the view with the API response.
+        /// This GET method will be responsible for calling the FindFlight method from the flight API. Additionally, this method will be in charge to get the correct Time FLight, this is due to the time difference between de 
+        /// Departure City and the Arrivale City. The logic behind this is to convert the time zone from on city to the time zone of the other city so that the dates of Departure and Arrivale will be on the same Time Zone 
         /// Go to  -> /Views/Flight/Details.cshtml
         /// </summary>
         /// <param name="id">This is an int datatype parameter of the flight you want to find.</param>
