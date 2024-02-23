@@ -4,30 +4,70 @@
 
 <main>
     <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
+        <h1 id="title">WELCOME TO ARNULFO'S AIRLINE - AIRPLANE - FLIGHT SYSTEM</h1>
+        <p class="lead">This airline and airplane system enables users to manage flights recorded in the CMS through essential Create, Read, Update, and Delete (CRUD) operations. The system embodies a clear 1-M relationship between entities, such as Airline-Flights and Airplane-Flights</p>
     </section>
 
     <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
+        <section class="col-md-6" aria-labelledby="gettingStartedTitle">
+            <h2 id="gettingStartedTitle" class="title-entity">Key Features</h2>
             <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
+                <ul>
+                    <li>
+                        <span class="title-entity">Create, Read, Update, Delete (CRUD):</span>
+                    </li>
+                    <li>
+                        <span class="title-entity">Entity Relationships (1-M):</span>
+                        <div> <span class="fa-solid fa-plane" style="font-size:0.85em"></span> (Airlines and their associated Flights), (Airplanes and their recorded Flights).</div>
+                    </li>
+                    <li>
+                        <span class="title-entity">Augment the CRUD base with specialized queries:</span>
+                        <div>
+                            <span class="fa-solid fa-plane" style="font-size:0.85em"></span> View flights for a specific airline. <br />
+                            <span class="fa-solid fa-plane" style="font-size:0.85em"></span> Access flights associated with a particular airplane. <br />
+                            <span class="fa-solid fa-plane" style="font-size:0.85em"></span> Retrieve airplanes operated by a specific airline.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="title-entity">Dynamic Search Bar:</span>
+                        <div>
+                            <span class="fa-solid fa-plane" style="font-size:0.85em"></span> Search for specific Airlines (case insensitive). <br />
+                            <span class="fa-solid fa-plane" style="font-size:0.85em"></span> Filter by Airplanes. <br />
+                            <span class="fa-solid fa-plane" style="font-size:0.85em"></span> Look up individual Flights directly.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="title-entity">Time Zone Offset Management:</span>
+                        <div>
+                            <span class="fa-solid fa-plane" style="font-size:0.85em"></span> The system adeptly manages time zone offsets related to server timestamps when adding and updating flight <br />
+                            <span class="fa-solid fa-plane" style="font-size:0.85em"></span> Using the local time zone of each of the destinations, the adjustment was made to a single time zone in order to obtain the flight time.
+                        </div>
+                    </li>
+                </ul>
             </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
         </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <section class="col-md-6" aria-labelledby="librariesTitle">
+            <h2 id="librariesTitle" class="title-entity">Extra features implemented:</h2>
+            <ul>
+                <li>Search by Airlines</li>
+                <li>Search by Flights</li>
+                <li>Search by Airplanes</li>
+                <li>Handle offset due to time by using <span class="title-entity">TimeZoneInfo.Local</span></li>
+                <li>Handle Time Zone Difference by using <span class="title-entity">ConvertTimeBySystemTimeZoneId</span></li>
+            </ul>
+            <h2 id="librariesTitle" class="title-entity">Entities:</h2>
+            <p>
+                <span class="fa-solid fa-plane" style="font-size:0.85em"></span>
+                Come and create the operation fo Create, Read, Update and Delete in this entities
+            </p>
+            <p><a class="btn btn-success" href="/Airline/List">CRUD - Airline Entity &raquo;</a></p>
+            <p><a class="btn btn-warning" href="/Airplane/List">CRUD - Airplane Entity &raquo;</a></p>
+            <p><a class="btn btn-danger" href="/Flight/List">CRUD - Flight Entity &raquo;</a></p>
         </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+        <!-- <section class="col-md-4" aria-labelledby="hostingTitle">
+        <h2 id="hostingTitle">Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </section> -->
     </div>
 </main>

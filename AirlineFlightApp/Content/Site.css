@@ -79,3 +79,15 @@ textarea {
     color: #3a5a40;
     font-weight: bold;
 }
+
+.background-red {
+    background-color: #9e2a2b
+}
+
+.nav-link{
+    color: white;
+}
+
+.nav-link:hover, .navbar-brand:hover {
+    color: #fca311;
+}
