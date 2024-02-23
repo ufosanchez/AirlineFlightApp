@@ -3,28 +3,25 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details of Airplane</h2>
+<div class="redirect-features">
+    <a href="/Airplane/List" class="btn btn-primary">Go back to list</a>
 
-<div style="display:flex; gap:10em">
-    <a href="/Airplane/List" style="font-weight:bold">Go back to list</a>
+    <a href="/Airplane/Edit/@Model.SelectedAirplane.AirplaneId" class="btn btn-warning">Update <span class="fa-solid fa-arrows-rotate"></span></a>
 
-    <a href="/Airplane/Edit/@Model.SelectedAirplane.AirplaneId" style="font-weight:bold; color:green">Update</a>
-
-    <a href="/Airplane/DeleteConfirm/@Model.SelectedAirplane.AirplaneId" style="font-weight: bold; color: red">Delete</a>
+    <a href="/Airplane/DeleteConfirm/@Model.SelectedAirplane.AirplaneId" class="btn btn-danger">Delete <span class="fa-solid fa-trash icon-trash"></span></a>
 </div>
 
-
-<h2>Model: @Model.SelectedAirplane.AirplaneModel</h2>
-<div><strong>Registration Number: </strong> @Model.SelectedAirplane.RegistrationNum</div>
+<h2 class="mt-2">Details of Airplane Model: <span class="title-entity">@Model.SelectedAirplane.AirplaneModel</span></h2>
+<div><strong>Registration Number: </strong> <span class="title-entity">@Model.SelectedAirplane.RegistrationNum</span></div>
 <div><strong>Manufacturer: </strong> @Model.SelectedAirplane.ManufacturerName</div>
-<div><strong>Manufacture Year: </strong> @Model.SelectedAirplane.ManufactureYear.Date.ToString("yyyy-MM-dd")</div>
+<div><strong>Manufacture Year: </strong> <span class="title-entity">@Model.SelectedAirplane.ManufactureYear.Date.ToString("yyyy-MM-dd")</span></div>
 <div><strong>Max Passengers: </strong> @Model.SelectedAirplane.MaxPassenger</div>
 <div><strong>Engine Model: </strong> @Model.SelectedAirplane.EngineModel</div>
 <div><strong>Speed: </strong> @Model.SelectedAirplane.Speed</div>
 <div><strong>Range: </strong> @Model.SelectedAirplane.Range</div>
 
 <div style="margin-top:50px;">
-    <h3>Flights related to the Airplane <span style="font-weight:bold">@Model.SelectedAirplane.AirplaneModel</span></h3>
+    <h3>Flights related to the Airplane <span class="title-entity">@Model.SelectedAirplane.AirplaneModel</span></h3>
 
     @{
         if (Model.RelatedFlights == null || !Model.RelatedFlights.Any())
@@ -37,7 +34,7 @@
                 @foreach (var flight in Model.RelatedFlights)
                 {
                     <li>
-                        <a href="/Flight/Details/@flight.FlightId">@flight.FlightNumber -- Date: @flight.DepartureTime.ToString("yyyy-MM-dd h:mm tt")</a>
+                        <a href="/Flight/Details/@flight.FlightId"><span class="related-entities">@flight.FlightNumber</span> -- Date: @flight.DepartureTime.ToString("yyyy-MM-dd h:mm tt")</a>
                     </li>
                 }
             </ul>

@@ -3,19 +3,16 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details of Airline</h2>
+<div class="redirect-features">
+    <a href="/Airline/List" class="btn btn-primary">Go back to list</a>
 
-<div style="display:flex; gap:10em">
-    <a href="/Airline/List" style="font-weight:bold">Go back to list</a>
+    <a href="/Airline/Edit/@Model.SelectedAirline.AirlineId" class="btn btn-warning">Update <span class="fa-solid fa-arrows-rotate"></span></a>
 
-    <a href="/Airline/Edit/@Model.SelectedAirline.AirlineId" style="font-weight:bold; color:green">Update</a>
-
-    <a href="/Airline/DeleteConfirm/@Model.SelectedAirline.AirlineId" style="font-weight: bold; color: red">Delete</a>
+    <a href="/Airline/DeleteConfirm/@Model.SelectedAirline.AirlineId" class="btn btn-danger">Delete <span class="fa-solid fa-trash icon-trash"></span></a>
 </div>
 
 
-
-<h2>Name: @Model.SelectedAirline.AirlineName</h2>
+<h2 class="mt-2">Details of Airline: <span class="title-entity">@Model.SelectedAirline.AirlineName</span></h2>
 <div><strong>Country: </strong> @Model.SelectedAirline.Country</div>
 <div><strong>Headquarters: </strong> @Model.SelectedAirline.Headquarters</div>
 <div><strong>Founder: </strong> @Model.SelectedAirline.FounderName</div>
@@ -24,7 +21,7 @@
 <div><strong>Contact number: </strong> @Model.SelectedAirline.ContactNumber</div>
 
 <div style="margin-top:50px;">
-    <h3>Flights related to <span style="font-weight:bold">@Model.SelectedAirline.AirlineName</span></h3>
+    <h3>Flights related to <span class="title-entity">@Model.SelectedAirline.AirlineName</span></h3>
 
     @{
         if (Model.RelatedFlights == null || !Model.RelatedFlights.Any())
@@ -36,8 +33,8 @@
             <ol>
                 @foreach (var flight in Model.RelatedFlights)
                 {
-                    <li>
-                        <a href="/Flight/Details/@flight.FlightId">@flight.FlightNumber -- Date: @flight.DepartureTime.ToString("yyyy-MM-dd h:mm tt")</a> <a href="/Flight/DeleteConfirm/@flight.FlightId" style="font-weight: bold; color: red">[x]</a>
+                    <li class="mb-2">
+                        <a href="/Flight/Details/@flight.FlightId"><span class="related-entities">@flight.FlightNumber</span> -- Date: @flight.DepartureTime.ToString("yyyy-MM-dd h:mm tt")</a> <a href="/Flight/DeleteConfirm/@flight.FlightId" style="font-weight: bold; color: red">[x]</a>
                     </li>
                 }
             </ol>
@@ -47,7 +44,7 @@
 </div>
 
 <div style="margin-top:50px;">
-    <h3>Airplanes related to <span style="font-weight:bold">@Model.SelectedAirline.AirlineName</span></h3>
+    <h3>Airplanes related to <span class="title-entity">@Model.SelectedAirline.AirlineName</span></h3>
 
     @{
         if (Model.RelatedAirplanes == null || !Model.RelatedAirplanes.Any())
@@ -60,7 +57,7 @@
                 @foreach (var airplane in Model.RelatedAirplanes)
                 {
                     <li>
-                        <a href="/Airplane/Details/@airplane.AirplaneId">Registration Num: @airplane.RegistrationNum <br/> Model: @airplane.AirplaneModel</a>
+                        <a href="/Airplane/Details/@airplane.AirplaneId">Registration Num: <span class="related-entities">@airplane.RegistrationNum</span> <br /> Model: <span class="related-entities">@airplane.AirplaneModel</span></a>
                     </li>
                 }
             </ol>
