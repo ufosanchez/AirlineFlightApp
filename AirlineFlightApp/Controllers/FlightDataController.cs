@@ -326,6 +326,20 @@ namespace AirlineFlightApp.Controllers
                 return BadRequest(ModelState);
             }
 
+            TimeZoneInfo timeZoneLocal = TimeZoneInfo.Local;
+
+            Debug.WriteLine("Date Form with offset DepartureTime: " + Flight.DepartureTime);
+            DateTime formDateDeparture = new DateTime(Flight.DepartureTime.Year, Flight.DepartureTime.Month, Flight.DepartureTime.Day, Flight.DepartureTime.Hour, Flight.DepartureTime.Minute, Flight.DepartureTime.Millisecond);
+            DateTime departureDateCorrect = formDateDeparture.Add(timeZoneLocal.GetUtcOffset(formDateDeparture));
+            Debug.WriteLine("Real Date correcting offset DepartureTime : " + departureDateCorrect);
+            Flight.DepartureTime = departureDateCorrect;
+
+            Debug.WriteLine("Date Form with offset ArrivalTime: " + Flight.ArrivalTime);
+            DateTime formDateArrival = new DateTime(Flight.ArrivalTime.Year, Flight.ArrivalTime.Month, Flight.ArrivalTime.Day, Flight.ArrivalTime.Hour, Flight.ArrivalTime.Minute, Flight.ArrivalTime.Millisecond);
+            DateTime arrivalDateCorrect = formDateArrival.Add(timeZoneLocal.GetUtcOffset(formDateArrival));
+            Debug.WriteLine("Real Date correcting offset ArrivalTime : " + arrivalDateCorrect);
+            Flight.ArrivalTime = arrivalDateCorrect;
+
             db.Flights.Add(Flight);
             db.SaveChanges();
 
