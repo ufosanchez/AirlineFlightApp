@@ -1,6 +1,8 @@
 # Airline and Airplane Management System
 
-This airline and airplane system enables users to manage flights recorded in the CMS through essential Create, Read, Update, and Delete (CRUD) operations. The system embodies a clear 1-M relationship between entities, such as Airline-Flights and Airplane-Flights.
+This airline and airplane system enables users to manage Airlines, Airplanes, and FLights recorded in the CMS through Create, Read, Update, and Delete (CRUD) operations. The system presents 1-M relationship between entities, such as Airline-Flights and Airplane-Flights.
+
+## Entity Relationship Diagram:
 
 ## Key Features:
 
