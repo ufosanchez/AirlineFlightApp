@@ -42,7 +42,7 @@ This airline and airplane system enables users to manage Airlines, Airplanes, an
    1. Clone the repository to your local machine.
    2. Open the code with Visual Studio
    3. Run the Project and if you get an Error due to the target framework
-      3.1   Change target framework to 4.7.1
+      3.1 Change target framework to 4.7.1
       3.2   Change back to 4.7.2
    4. Make sure there is an App_Data folder in the project (Right click solution > View in File Explorer)
       4.1   If there is no folder create a folder called App_Data
