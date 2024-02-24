@@ -40,7 +40,28 @@ This airline and airplane system enables users to manage Airlines, Airplanes, an
 
 # Pages and methods used:
 ### AirlineDataController
-   - List of Airlines or for particular airlines `api/AirlineData/ListAirlines/{AirlineSearch?}`
+   - List of Airlines or for particular Airlines (FIlter) `api/AirlineData/ListAirlines/{AirlineSearch?}`
+   - Find a particular Airline `api/AirlineData/FindAirline/{id}`
+   - Delete an Airline `api/AirlineData/DeleteAirline/{id}`
+   - Add an Airline `api/AirlineData/AddAirline`
+   - Update an Airline `api/AirlineData/UpdateAirline/{id}`
+
+### AirplaneDataController
+   - List of Airplanes or for particular Airplane (Filter) `api/AirplaneData/ListAirplanes/{AirplaneSearch?}`
+   - Find a particular Airplane `api/AirplaneData/FindAirplane/{id}`
+   - Delete an Airplane `api/AirplaneData/DeleteAirplane/{id}`
+   - Add an Airplane `api/AirplaneData/AddAirplane`
+   - Update an Airline `api/AirplaneData/UpdateAirplane/{id}`
+
+### FlightDataController
+   - List of Flights or for particular Flights (Filter) `api/FlightData/ListFlights/{FlightSearch?}`
+   - List for Flights for a particular Airline `api/FlightData/ListFlightsForAirline/{id}`
+   - List for Flights for a particular Airplane `api/FlightData/ListFlightsForAirplane/{id}`
+   - List for related Planes (belongs) to an Airline `api/FlightData/ListPlanesForAirline/{id}`
+   - Find a particular Flight `api/FlightData/FindFlight/{id}`
+   - Delete a Flight `api/FlightData/DeleteFlight/{id}`
+   - Add a Flight `api/FlightData/AddFlight`
+   - Update a Flight `api/FlightData/UpdateFlight/{id}`
 
 ## Technologies used for the project:
    - ASP.NET Entity Framework
