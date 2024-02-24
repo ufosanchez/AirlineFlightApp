@@ -3,7 +3,8 @@
 This airline and airplane system enables users to manage Airlines, Airplanes, and FLights recorded in the CMS through Create, Read, Update, and Delete (CRUD) operations. The system presents 1-M relationship between entities, such as Airline-Flights and Airplane-Flights.
 
 ## Entity Relationship Diagram:
-![ER Diagram](C:\Users\arnul\OneDrive\Pictures\ER_Diagram)
+![ER_Diagram](https://github.com/ufosanchez/AirlineFlightApp/assets/125388195/31cf290d-8890-44d3-a5af-e459e56d4efc)
+
 
 ## Key Features:
 
