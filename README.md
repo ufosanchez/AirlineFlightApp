@@ -30,3 +30,10 @@ This airline and airplane system enables users to manage Airlines, Airplanes, an
 5. **Time Zone Offset Management:**
    - The system adeptly manages time zone offsets related to server timestamps. This ensures accurate recording of each new flight entry and any updates made.
    - Using the local time zone of each of the destinations, the adjustment was made to a single time zone to obtain the flight time.
+
+## Extra Features:
+   - Search by Airlines (Filter option - case insensitive).
+   - Search by Airplanes (Filter option - case insensitive).
+   - Search by Flights (Filter option - case insensitive).
+   - **TimeZoneInfo.Local** for handling Time Zone offset of the computer for **Add Flight** and **Update Flight**
+   - **ConvertTimeBySystemTimeZoneId** for handling Time Zone Difference by using, so I can get the correct **Duration Flight**
