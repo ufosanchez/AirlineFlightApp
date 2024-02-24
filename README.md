@@ -10,7 +10,7 @@ This airline and airplane system enables users to manage Airlines, Airplanes, an
 ## Key Features:
 
 1. **Create, Read, Update, Delete (CRUD):**
-   - Leverage comprehensive CRUD functionalities for efficient management of flight data.
+   - Leverage comprehensive CRUD functionalities for efficient management of Airlines, Airplanes and FLight data.
 
 2. **Entity Relationships (1-M):**
    - Establish a clear 1-M relationship between Airlines and their associated Flights, as well as between Airplanes and their recorded Flights.
@@ -38,11 +38,17 @@ This airline and airplane system enables users to manage Airlines, Airplanes, an
    - **TimeZoneInfo.Local** for handling Time Zone offset of the computer for **Add Flight** and **Update Flight**
    - **ConvertTimeBySystemTimeZoneId** for handling Time Zone Difference by using, so I can get the correct **Duration Flight**
 
+# Pages and methods used:
+### AirlineDataController
+   - List of Airlines or for particular airlines `api/AirlineData/ListAirlines/{AirlineSearch?}`
+
 ## Technologies used for the project:
    - ASP.NET Entity Framework
    - Bootstrap CSS Framework
    - Vanilla CSS
    - LINQ
+   - Web API Controllers
+   - MVC Controllers
 
 ## Getting Started:
    1. Clone the repository to your local machine.
