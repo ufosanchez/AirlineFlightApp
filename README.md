@@ -10,7 +10,7 @@ This airline and airplane system enables users to manage Airlines, Airplanes, an
 ## Key Features:
 
 1. **Create, Read, Update, Delete (CRUD):**
-   - Leverage comprehensive CRUD functionalities for efficient management of Airlines, Airplanes and FLight data.
+   - Leverage comprehensive CRUD functionalities for efficient management of Airlines, Airplanes, and Flight data.
 
 2. **Entity Relationships (1-M):**
    - Establish a clear 1-M relationship between Airlines and their associated Flights, as well as between Airplanes and their recorded Flights.
@@ -23,7 +23,7 @@ This airline and airplane system enables users to manage Airlines, Airplanes, an
 
 4. **Dynamic Search Bar:**
    - Integrate a dynamic search bar allowing users to filter data effortlessly. Users can:
-      - Search for specific Airlines, case insensitive so no problem about capital letters or lower letters.
+      - Search for specific Airlines, case insensitive so no problem with capital letters or lower letters.
       - Filter by Airplanes.
       - Look up individual Flights directly.
 
@@ -40,28 +40,28 @@ This airline and airplane system enables users to manage Airlines, Airplanes, an
 
 # Pages and methods used:
 ### AirlineDataController
-   - List of Airlines or for particular Airlines (FIlter) `api/AirlineData/ListAirlines/{AirlineSearch?}`
-   - Find a particular Airline `api/AirlineData/FindAirline/{id}`
-   - Delete an Airline `api/AirlineData/DeleteAirline/{id}`
-   - Add an Airline `api/AirlineData/AddAirline`
-   - Update an Airline `api/AirlineData/UpdateAirline/{id}`
+   - List of Airlines or for particular Airlines (FIlter) `HttpGet api/AirlineData/ListAirlines/{AirlineSearch?}`
+   - Find a particular Airline `HttpGet api/AirlineData/FindAirline/{id}`
+   - Delete an Airline `HttpPost api/AirlineData/DeleteAirline/{id}`
+   - Add an Airline `HttpPost api/AirlineData/AddAirline`
+   - Update an Airline `HttpPost api/AirlineData/UpdateAirline/{id}`
 
 ### AirplaneDataController
    - List of Airplanes or for particular Airplane (Filter) `api/AirplaneData/ListAirplanes/{AirplaneSearch?}`
    - Find a particular Airplane `api/AirplaneData/FindAirplane/{id}`
-   - Delete an Airplane `api/AirplaneData/DeleteAirplane/{id}`
-   - Add an Airplane `api/AirplaneData/AddAirplane`
-   - Update an Airline `api/AirplaneData/UpdateAirplane/{id}`
+   - Delete an Airplane `HttpPost api/AirplaneData/DeleteAirplane/{id}`
+   - Add an Airplane `HttpPost api/AirplaneData/AddAirplane`
+   - Update an Airline `HttpPost api/AirplaneData/UpdateAirplane/{id}`
 
 ### FlightDataController
-   - List of Flights or for particular Flights (Filter) `api/FlightData/ListFlights/{FlightSearch?}`
-   - List for Flights for a particular Airline `api/FlightData/ListFlightsForAirline/{id}`
-   - List for Flights for a particular Airplane `api/FlightData/ListFlightsForAirplane/{id}`
-   - List for related Planes (belongs) to an Airline `api/FlightData/ListPlanesForAirline/{id}`
-   - Find a particular Flight `api/FlightData/FindFlight/{id}`
-   - Delete a Flight `api/FlightData/DeleteFlight/{id}`
-   - Add a Flight `api/FlightData/AddFlight`
-   - Update a Flight `api/FlightData/UpdateFlight/{id}`
+   - List of Flights or for particular Flights (Filter) `HttpGet api/FlightData/ListFlights/{FlightSearch?}`
+   - List for Flights for a particular Airline `HttpGet api/FlightData/ListFlightsForAirline/{id}`
+   - List for Flights for a particular Airplane `HttpGet api/FlightData/ListFlightsForAirplane/{id}`
+   - List for related Planes (belongs) to an Airline `HttpGet api/FlightData/ListPlanesForAirline/{id}`
+   - Find a particular Flight `HttpGet api/FlightData/FindFlight/{id}`
+   - Delete a Flight `HttpPost api/FlightData/DeleteFlight/{id}`
+   - Add a Flight `HttpPost api/FlightData/AddFlight`
+   - Update a Flight `HttpPost api/FlightData/UpdateFlight/{id}`
 
 ## Technologies used for the project:
    - ASP.NET Entity Framework
