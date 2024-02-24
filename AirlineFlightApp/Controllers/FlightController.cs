@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -58,13 +59,16 @@ namespace AirlineFlightApp.Controllers
 
         /// <summary>
         /// GET: Flight/Details/{id}
-        /// This GET method will be responsible for calling the FindFlight method from the flight API. Additionally, this method will be in charge to get the correct Time FLight, this is due to the time difference between de 
-        /// Departure City and the Arrivale City. The logic behind this is to convert the time zone from on city to the time zone of the other city so that the dates of Departure and Arrivale will be on the same Time Zone 
+        /// This GET method will be responsible for calling the FindFlight method from the flight API. Additionally, this method will be in charge to get the correct Time Flight (duration). Ddue to the time difference between de 
+        /// Departure City and the Arrivale City the flight will not be congruent. In order to fix this, the logic should convert the Time Zone from on city to the Time Zone of the other city so that the dates of Departure and Arrivale will be on the same Time Zone 
+        /// this was possible with the use of TimeZoneInfo.ConvertTimeBySystemTimeZoneId => This method converts a time from one time zone to another based on time zone identifiers. It accepts 3 parameters
+        /// The date and time to convert (DateTime). The identifier of the source time zone (String). The identifier of the destination time zone (String). the time zone (type String) are provided by the user and it's stored in the DB
         /// Go to  -> /Views/Flight/Details.cshtml
         /// </summary>
         /// <param name="id">This is an int datatype parameter of the flight you want to find.</param>
         /// <returns>
-        /// Return the Details View of the flight found by the ID given in the URL. This flight will be of the datatype FlightDto
+        /// Returns a VIewModel DetailsFlight which holds a property SelectedFlight => the flight found by the ID given in the URL. This flight will be of the datatype FlightDto
+        /// additionally, the ViewModel returns FlightDuration which its a string of the duration of the flights once the change to Time Zone is done as well as the mathematica operation to het the diference of hurs and minutes
         /// </returns>
         public ActionResult Details(int id)
         {
@@ -120,10 +124,12 @@ namespace AirlineFlightApp.Controllers
         /// <summary>
         /// GET: Flight/New
         /// GET method to add a new flight to the system, responsible for providing the view of the form for inserting a new flight.
+        /// Additionally it will provide the Airlines Options as well as the Airplanes Options so the user can select the desired airline and airplane on the drop downs
+        /// This was possible through the call of the API to get the list of Airlines (api/AirlineData/ListAirlines) and the Airplanes (api/AirplaneData/ListAirplanes)
         /// Go to  -> /Views/Flight/New.cshtml
         /// </summary>
         /// <returns>
-        /// Returns the view of the form so that the user can insert a new flight.
+        /// Thi method provide the a ViewModel of type AddFlight, which holds the Airlines Options and Airplanes Options, so this properties will given to the VIew New
         /// </returns>
         public ActionResult New()
         {
@@ -190,13 +196,15 @@ namespace AirlineFlightApp.Controllers
         /// <summary>
         /// GET: Flight/Edit/{id}
         /// This GET method is in charge of collecting and sending the informaction to the View which will have a form with the flight information that is requested by its id, 
-        /// for this the api/FlightData/FindFlight/{id} is used. Once the call to the API is made, the information collected of the datatype FlightDto will be sent to the view. 
+        /// for this the api/FlightData/FindFlight/{id} is used, additioally it will collect and send the information of the differnt Airlines and Airplanes in the sytem so the user can easly see the current vales
+        /// and if desier, they will be able to change it throgh the use of the drop downs. The api used to get the list of Airlines is => AirlineData/ListAirlines and Airplanes => AirplaneData/ListAirplanes
+        /// Once the call to this API API is made, the information collected of the datatype FlightDto, ListAirlines and ListAirplanes will be sent to the view by the ViewModel of type UpdateFlight. 
         /// In this way the form will be populated with the information of the flight
         /// Go to  -> /Views/Flight/Edit.cshtml
         /// </summary>
         /// <param name="id">This is an int datatype parameter of the FlightId value that will be displayed in the form in order to make an update</param>
         /// <returns>
-        /// Returns the view with the form filled with the information of the flight to update
+        /// Returns a ViewModel of type UpdateFlight which holds the iformation of the flight to edit (ViewModel.SelectedFlight), the list of Airlines (ViewModel.AirlinesOptions) and the list of Airplanes (ViewModel.AirplanesOptions)
         /// </returns>
         public ActionResult Edit(int id)
         {
