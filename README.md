@@ -37,3 +37,15 @@ This airline and airplane system enables users to manage Airlines, Airplanes, an
    - Search by Flights (Filter option - case insensitive).
    - **TimeZoneInfo.Local** for handling Time Zone offset of the computer for **Add Flight** and **Update Flight**
    - **ConvertTimeBySystemTimeZoneId** for handling Time Zone Difference by using, so I can get the correct **Duration Flight**
+
+## Getting Started:
+   1. Clone the repository to your local machine.
+   2. Open the code with Visual Studio
+   3. Run the Project and if you get an Error due to the target framework
+      3.1   Change target framework to 4.7.1
+      3.2   Change back to 4.7.2
+   4. Make sure there is an App_Data folder in the project (Right click solution > View in File Explorer)
+      4.1   If there is no folder create a folder called App_Data
+   5. Run Update-Database by typing it on Tools > Nuget Package Manager > Package Manage Console
+   6. Check that the database is created using (View > SQL Server Object Explorer > MSSQLLocalDb > ..)
+   7. Access to the Features by the browser or run API commands through CURL in your terminal
