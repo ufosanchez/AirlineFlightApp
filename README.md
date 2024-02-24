@@ -38,6 +38,12 @@ This airline and airplane system enables users to manage Airlines, Airplanes, an
    - **TimeZoneInfo.Local** for handling Time Zone offset of the computer for **Add Flight** and **Update Flight**
    - **ConvertTimeBySystemTimeZoneId** for handling Time Zone Difference by using, so I can get the correct **Duration Flight**
 
+## Technologies used for the project:
+   - ASP.NET Entity Framework
+   - Bootstrap CSS Framework
+   - Vanilla CSS
+   - LINQ
+
 ## Getting Started:
    1. Clone the repository to your local machine.
    2. Open the code with Visual Studio
